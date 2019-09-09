@@ -23,8 +23,6 @@ public class JobController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model, int id) {
 
-        // TODO #1 - get the Job with the given ID and pass it into the view
-
         model.addAttribute("employer", jobData.findAll().get(id).getEmployer());
         model.addAttribute("name", jobData.findAll().get(id).getName());
         model.addAttribute("position", jobData.findAll().get(id).getPositionType());
@@ -43,8 +41,9 @@ public class JobController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String add(Model model, @Valid JobForm jobForm, Errors errors) {
 
-        // TODO #6 - Validate the JobForm model, and if valid
-
+        if (errors.hasErrors()) {
+            System.out.println("Errors are " + errors.getAllErrors().toString());
+            return "new-job";
 
         Job newJob = new Job;
 
